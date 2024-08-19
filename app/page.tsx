@@ -3,9 +3,16 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button"
 import { MoonIcon, SunIcon, FaceIcon } from "@radix-ui/react-icons"
 import { useTheme } from "next-themes"
+import { useEffect, useState } from "react";
 
 export default function Home() {
+  const [mounted, setMounted] = useState(false)
   const { setTheme, theme } = useTheme()
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+  // 解决第一次加载时，theme为undefined的问题
+  if (!mounted) return null
   return (
     <div className="flex flex-col min-h-screen bg-white dark:bg-zinc-950">
       <header className="flex justify-center bg-blue-500">
@@ -23,7 +30,9 @@ export default function Home() {
             )
             }
             <button className="mx-2 text-2xl text-white" onClick={() => setTheme("dark")}>Language</button>
-            <span className="mx-2 text-2xl text-white">sign in</span>
+            <a href="https://github.com/login/oauth/authorize?
+  client_id=Ov23linkApQ6M8RHBJhO&
+  redirect_uri=http://localhost:3000/oauth/redirect" className="mx-2 text-2xl text-white">sign in</a>
           </div>
         </div>
       </header>
